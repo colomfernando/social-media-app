@@ -1,7 +1,7 @@
 {
   "name": "social-media-app",
   "version": "1.0.0",
-	"dependencies": {
+  "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -9,10 +9,12 @@
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
+    "@types/react-router-dom": "^5.3.3",
     "browser-localstorage-expire": "^1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.0",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
@@ -27,6 +29,7 @@
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
+    "autoprefixer": "^10.4.8",
     "eslint": "^8.11.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^16.1.4",
@@ -37,7 +40,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "prettier": "^2.2.1"
+    "postcss": "^8.4.14",
+    "prettier": "^2.2.1",
+    "tailwindcss": "^3.1.7"
   },
   "scripts": {
     "start": "react-scripts start",
