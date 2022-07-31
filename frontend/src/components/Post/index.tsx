@@ -3,8 +3,9 @@ import Avatar from 'components/Avatar';
 import LikeIcon from 'components/LikeIcon';
 import getDifferenceHours from 'utils/getDifferenceHours';
 
-interface PropsPost {
+export interface PropsPost {
   text: string;
+  id: number;
   likes: number;
   timestamp: number;
   user: {
@@ -22,14 +23,20 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
   const hoursPosted = getDifferenceHours(timestamp);
 
   return (
-    <article className="bg-white w-1/2 p-5 mb-4 last:mb-0 rounded-md">
+    <article>
       <div className="flex">
         <Avatar userId={id} url={avatar} />
         <div className="flex flex-col w-full ml-4 mr-1">
           <div className="flex">
-            <p className="font-bold mr-2">{`${firstname} ${lastname}`}</p>
-            <p className="text-gray-600">{`@${username}`}</p>
-            <span className="ml-1">{` - ${hoursPosted}h`}</span>
+            <p className="font-bold mr-2">
+              {`${firstname} ${lastname}`}
+              <p className="text-gray-600 font-normal md:hidden">
+                {`@${username}`}
+                <span className="ml-1 text-black md:hidden">{` - ${hoursPosted}h`}</span>
+              </p>
+            </p>
+            <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
+            <span className="ml-1 hidden ">{` - ${hoursPosted}h`}</span>
             <LikeIcon likes={likes} />
           </div>
           <p className="mt-3 pr-10">{text}</p>

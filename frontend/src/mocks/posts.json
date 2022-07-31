@@ -7,6 +7,7 @@
       "username": "colomfernando",
       "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     },
+    "id": 1,
     "likes": 3,
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
     "timestamp": 1659187800000
@@ -19,6 +20,7 @@
       "username": "psalas",
       "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     },
+    "id": 2,
     "likes": 4,
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
     "timestamp": 1659272400000
@@ -31,6 +33,85 @@
       "username": "MatiasL",
       "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     },
+    "id": 3,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 4,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 5,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 6,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 7,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 8,
+    "likes": 3,
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
+    "timestamp": 1659015000000
+  },
+  {
+    "user": {
+      "id": 234234,
+      "firstname": "Matias",
+      "lastname": "Lopez",
+      "username": "MatiasL",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    "id": 19,
     "likes": 3,
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.",
     "timestamp": 1659015000000

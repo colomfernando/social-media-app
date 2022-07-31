@@ -1,18 +1,14 @@
 import React from 'react';
 import MainLayout from 'Layout/MainLayout';
 import postMock from '../mocks/posts.json';
-import Post from 'components/Post';
+import PostList from 'components/PostList';
 
 const Home: React.FC = () => {
   return (
     <MainLayout>
-      <div className="container mx-auto px-10">
-        <div className="flex flex-col justify-center items-center">
-          {postMock.map((post, idx) => (
-            <Post key={idx.toString()} {...post} />
-          ))}
-        </div>
-      </div>
+      <section className="mt-5  mx-auto w-5/6  lg:w-1/3 flex">
+        <PostList posts={postMock} />
+      </section>
     </MainLayout>
   );
 };
