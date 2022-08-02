@@ -2,6 +2,9 @@ version: '3'
 services:
   app:
     image: app
+    networks:
+      - social-app-network
+    container_name: frontend
     build: 
      dockerfile: ./frontend/Dockerfile
      context: ./
@@ -11,3 +14,20 @@ services:
     volumes:
       - ./frontend:/home/app
       - /home/app/node_modules
+  server:
+    image: server
+    networks:
+      - social-app-network
+    container_name: backend
+    build:
+      dockerfile: ./backend/Dockerfile
+      context: ./
+      target: development
+    ports:
+    - "8080:8080"
+    volumes:
+      - ./backend:/home/server
+      - /home/server/node_modules
+networks:
+  social-app-network:
+    driver: bridge
