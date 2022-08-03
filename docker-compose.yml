@@ -11,6 +11,8 @@ services:
      target: development
     ports:
       - "3000:3000"
+    networks:
+      - social-app-network
     volumes:
       - ./frontend:/home/app
       - /home/app/node_modules
@@ -19,6 +21,8 @@ services:
     networks:
       - social-app-network
     container_name: backend
+    depends_on:
+      - mongodb
     build:
       dockerfile: ./backend/Dockerfile
       context: ./
@@ -28,6 +32,18 @@ services:
     volumes:
       - ./backend:/home/server
       - /home/server/node_modules
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - social-app-network
+    volumes:
+      - /backend/db:/data/db
 networks:
   social-app-network:
     driver: bridge
+volumes:
+  mongodb:
+    driver: local
