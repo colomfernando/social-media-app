@@ -34,12 +34,11 @@ server.use('/api/user', userRouter);
 
 server.get('/', async (req, res) => {
 	// Post.create({
-	// 	userId: 234234,
-	// 	id: 1,
+	// 	userId: '234234',
 	// 	likes: 3,
 	// 	text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et massa nec libero condimentum eleifend a ut risus. Maecenas vel ligula lobortis, vulputate metus ut, ullamcorper elit. Proin in tortor in nulla lacinia dignissim. Nullam fringilla, mi sit amet euismod sagittis, nulla felis porttitor urna, in semper libero tortor in turpis. Quisque vel porttitor quam. Nulla.',
-	// 	timestamp: 1659187800000,
 	// });
+
 	res.send('Hello server');
 });
 
