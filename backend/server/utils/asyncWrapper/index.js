@@ -8,6 +8,7 @@
 const asyncWrapper = async (fn) => {
 	try {
 		const res = await fn();
+
 		return [res, null];
 	} catch (error) {
 		return [null, error];
