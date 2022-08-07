@@ -6,6 +6,7 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const verifyToken = require('./middleware/verifyToken');
+const handleError = require('./middleware/handlerError');
 
 require('dotenv').config();
 
@@ -41,6 +42,9 @@ server.use(verifyToken);
 
 server.use('/api/post', postRouter);
 server.use('/api/user', userRouter);
+
+// eslint-disable-next-line no-unused-vars
+server.use(handleError);
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

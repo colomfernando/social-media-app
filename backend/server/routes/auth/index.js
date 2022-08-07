@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const Jwt = require('../../modules/Jwt');
 const asyncWrapper = require('../../utils/asyncWrapper');
 const { newUserSchema, credentialSchema } = require('../../schemas/');
 const Credential = require('../../models/credential');
@@ -44,7 +44,7 @@ router.post('/register', async (req, res, next) => {
 
     if (errorUserDb) return res.status(500).send('Something went wrong');
 
-    const token = jwt.sign(
+    const token = Jwt.sign(
       {
         email: newUser.email,
         firstname: newUser.firstname,
@@ -89,7 +89,7 @@ router.post('/login', async (req, res, next) => {
 
     if (errorUser) return res.status(500).send('Something went wrong');
 
-    const token = jwt.sign(
+    const token = Jwt.sign(
       {
         email: dataUser.email,
         firstname: dataUser.firstname,
