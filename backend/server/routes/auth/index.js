@@ -5,6 +5,7 @@ const asyncWrapper = require('../../utils/asyncWrapper');
 const { newUserSchema, credentialSchema } = require('../../schemas/');
 const Credential = require('../../models/credential');
 const User = require('../../models/user');
+const ErrorHandler = require('../../modules/ErrorHandler');
 
 const router = express.Router();
 
@@ -15,13 +16,13 @@ router.post('/register', async (req, res, next) => {
     const { error: errorNewUserSchema } = newUserSchema.validate(body);
 
     if (errorNewUserSchema)
-      return res.status(400).send(errorNewUserSchema.details[0].message);
+      throw new ErrorHandler(errorNewUserSchema.details[0].message, 400);
 
     const [isEmailRegistered] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
     );
 
-    if (isEmailRegistered) return res.status(409).send('Email exist');
+    if (isEmailRegistered) throw new ErrorHandler('Email exist', 409);
 
     const { password, ...rest } = body;
 
@@ -36,13 +37,14 @@ router.post('/register', async (req, res, next) => {
       Credential.create({ password: hashPassword, email: newUser.email })
     );
 
-    if (errorCredentialDb) return res.status(500).send('Something went wrong');
+    if (errorCredentialDb)
+      throw new ErrorHandler('Email Something went wrong', 500);
 
     const [dataUser, errorUserDb] = await asyncWrapper(() =>
       User.create({ ...newUser })
     );
 
-    if (errorUserDb) return res.status(500).send('Something went wrong');
+    if (errorUserDb) throw new ErrorHandler('Email Something went wrong', 500);
 
     const token = Jwt.sign(
       {
@@ -54,7 +56,10 @@ router.post('/register', async (req, res, next) => {
       },
       process.env.TOKEN_SECRET
     );
-
+    // send cookie with one hour expire
+    res.cookie('auth-token', token, {
+      expires: new Date(Date.now() + 3600000),
+    });
     res.status(201).send(token);
   } catch (err) {
     next(err);
@@ -68,26 +73,25 @@ router.post('/login', async (req, res, next) => {
     const { error: errorCredentialSchema } = credentialSchema.validate(body);
 
     if (errorCredentialSchema)
-      return res.status(400).send(errorCredentialSchema.details[0].message);
+      throw new ErrorHandler(errorCredentialSchema.details[0].message, 400);
 
     const [userFound] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
     );
 
-    if (!userFound) return res.status(404).send('Email is not registered');
+    if (!userFound) throw new ErrorHandler('Email is not registered', 404);
 
     const validPassword = await bcrypt.compare(
       body.password,
       userFound.password
     );
-    if (!validPassword)
-      return res.status(400).json({ message: 'invalid password' });
+    if (!validPassword) throw new ErrorHandler('invalid password', 400);
 
     const [dataUser, errorUser] = await asyncWrapper(() =>
       User.findOne({ email: body.email })
     );
 
-    if (errorUser) return res.status(500).send('Something went wrong');
+    if (errorUser) throw new ErrorHandler('Email Something went wrong', 500);
 
     const token = Jwt.sign(
       {
@@ -99,7 +103,10 @@ router.post('/login', async (req, res, next) => {
       },
       process.env.TOKEN_SECRET
     );
-
+    // send cookie with one hour expire
+    res.cookie('auth-token', token, {
+      expires: new Date(Date.now() + 3600000),
+    });
     res.status(200).send(token);
   } catch (err) {
     next(err);

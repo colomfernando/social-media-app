@@ -31,8 +31,8 @@ router.get('/:id', async (req, res, next) => {
     if (error) throw new ErrorHandler();
 
     res.status(200).send(post);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -49,7 +49,7 @@ router.post('/', async (req, res, next) => {
 
     if (error) throw new ErrorHandler();
 
-    res.status(200).send(post);
+    res.status(201).send(post);
   } catch (err) {
     next(err);
   }
@@ -59,11 +59,16 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const [error] = await asyncWrapper(() => Post.deleteOne({ id }).exec());
+    const [dataPost, errorPost] = await asyncWrapper(() =>
+      Post.deleteOne({ id }).exec()
+    );
 
-    if (error) throw new ErrorHandler();
+    if (errorPost) throw new ErrorHandler();
 
-    res.status(204);
+    if (dataPost.deletedCount === 0)
+      throw new ErrorHandler('record not found', 404);
+
+    res.status(204).send({ message: 'Record deleted' });
   } catch (err) {
     next(err);
   }

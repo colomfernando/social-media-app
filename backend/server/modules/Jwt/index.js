@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
+const ErrorHandler = require('../../modules/ErrorHandler');
 
 class Jwt {
   static verify(token) {
     return jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
-      if (err) throw new Error(err.message);
+      if (err) throw new ErrorHandler(err.message, 403);
 
       return data;
     });
