@@ -1,4 +1,6 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const asyncWrapper = require('../../utils/asyncWrapper');
 const { credentialSchema } = require('../../schemas/');
 const Credential = require('../../models/credential');
@@ -20,6 +22,10 @@ router.post('/register', async (req, res, next) => {
 
     if (isEmailRegistered) return res.status(400).send('Email exist');
     // await asyncWrapper(() => Credential.create({ ...body }));
+
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(req.body.password, salt);
+    console.log('password :>> ', password);
 
     res.status(200).send();
   } catch (err) {
