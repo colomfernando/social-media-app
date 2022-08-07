@@ -38,7 +38,7 @@ router.post('/register', async (req, res, next) => {
 
     if (errorCredentialDb) return res.status(500).send('Something went wrong');
 
-    const [, errorUserDb] = await asyncWrapper(() =>
+    const [dataUser, errorUserDb] = await asyncWrapper(() =>
       User.create({ ...newUser })
     );
 
@@ -50,6 +50,7 @@ router.post('/register', async (req, res, next) => {
         firstname: newUser.firstname,
         lastname: newUser.lastname,
         username: newUser.username,
+        id: dataUser._id,
       },
       process.env.TOKEN_SECRET
     );
@@ -82,7 +83,7 @@ router.post('/login', async (req, res, next) => {
     if (!validPassword)
       return res.status(400).json({ message: 'invalid password' });
 
-    const [user, errorUser] = await asyncWrapper(() =>
+    const [dataUser, errorUser] = await asyncWrapper(() =>
       User.findOne({ email: body.email })
     );
 
@@ -90,10 +91,11 @@ router.post('/login', async (req, res, next) => {
 
     const token = jwt.sign(
       {
-        email: user.email,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        username: user.username,
+        email: dataUser.email,
+        firstname: dataUser.firstname,
+        lastname: dataUser.lastname,
+        username: dataUser.username,
+        id: dataUser._id,
       },
       process.env.TOKEN_SECRET
     );
