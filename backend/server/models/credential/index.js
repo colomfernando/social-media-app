@@ -14,4 +14,16 @@ const credentialSchema = new mongoose.Schema({
   },
 });
 
+credentialSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+credentialSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret._id;
+    delete ret.__v;
+  },
+});
+
 module.exports = mongoose.model('Credential', credentialSchema);

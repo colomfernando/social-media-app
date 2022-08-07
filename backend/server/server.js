@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
+const verifyToken = require('./middleware/verifyToken');
 
 require('dotenv').config();
 
@@ -34,13 +35,12 @@ server.use(
   })
 );
 
-server.use('/api/post', postRouter);
-server.use('/api/user', userRouter);
 server.use('/api', authRouter);
 
-server.get('/', async (req, res) => {
-  res.send('Hello server');
-});
+server.use(verifyToken);
+
+server.use('/api/post', postRouter);
+server.use('/api/user', userRouter);
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

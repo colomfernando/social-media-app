@@ -2,8 +2,9 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const asyncWrapper = require('../../utils/asyncWrapper');
-const { credentialSchema } = require('../../schemas/');
+const { newUserSchema, credentialSchema } = require('../../schemas/');
 const Credential = require('../../models/credential');
+const User = require('../../models/user');
 
 const router = express.Router();
 
@@ -11,23 +12,49 @@ router.post('/register', async (req, res, next) => {
   try {
     const { body } = req;
 
-    const { error: errorSchema } = credentialSchema.validate(body);
+    const { error: errorNewUserSchema } = newUserSchema.validate(body);
 
-    if (errorSchema)
-      return res.status(400).send(errorSchema.details[0].message);
+    if (errorNewUserSchema)
+      return res.status(400).send(errorNewUserSchema.details[0].message);
 
     const [isEmailRegistered] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
     );
 
-    if (isEmailRegistered) return res.status(400).send('Email exist');
-    // await asyncWrapper(() => Credential.create({ ...body }));
+    if (isEmailRegistered) return res.status(409).send('Email exist');
+
+    const { password, ...rest } = body;
 
     const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash(req.body.password, salt);
-    console.log('password :>> ', password);
+    const hashPassword = await bcrypt.hash(password, salt);
 
-    res.status(200).send();
+    const newUser = {
+      ...rest,
+    };
+
+    const [, errorCredentialDb] = await asyncWrapper(() =>
+      Credential.create({ password: hashPassword, email: newUser.email })
+    );
+
+    if (errorCredentialDb) return res.status(500).send('Something went wrong');
+
+    const [, errorUserDb] = await asyncWrapper(() =>
+      User.create({ ...newUser })
+    );
+
+    if (errorUserDb) return res.status(500).send('Something went wrong');
+
+    const token = jwt.sign(
+      {
+        email: newUser.email,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        username: newUser.username,
+      },
+      process.env.TOKEN_SECRET
+    );
+
+    res.status(201).send(token);
   } catch (err) {
     next(err);
   }
@@ -36,9 +63,42 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   try {
     const { body } = req;
-    const [, error] = await asyncWrapper(() => Credential.create({ ...body }));
 
-    res.status(200).send(error.message);
+    const { error: errorCredentialSchema } = credentialSchema.validate(body);
+
+    if (errorCredentialSchema)
+      return res.status(400).send(errorCredentialSchema.details[0].message);
+
+    const [userFound] = await asyncWrapper(() =>
+      Credential.findOne({ email: body.email })
+    );
+
+    if (!userFound) return res.status(404).send('Email is not registered');
+
+    const validPassword = await bcrypt.compare(
+      body.password,
+      userFound.password
+    );
+    if (!validPassword)
+      return res.status(400).json({ message: 'invalid password' });
+
+    const [user, errorUser] = await asyncWrapper(() =>
+      User.findOne({ email: body.email })
+    );
+
+    if (errorUser) return res.status(500).send('Something went wrong');
+
+    const token = jwt.sign(
+      {
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
+      },
+      process.env.TOKEN_SECRET
+    );
+
+    res.status(200).send(token);
   } catch (err) {
     next(err);
   }
