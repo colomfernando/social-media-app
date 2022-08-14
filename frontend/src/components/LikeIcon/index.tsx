@@ -4,7 +4,6 @@ interface PropsLikeIcon {
   likes: number;
 }
 const LikeIcon: React.FC<PropsLikeIcon> = ({ likes }) => {
-  if (!likes) return null;
   return (
     <div className="flex justify-center items-center ml-auto">
       <svg

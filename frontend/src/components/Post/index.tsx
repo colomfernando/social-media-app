@@ -36,7 +36,7 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
               </p>
             </p>
             <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
-            <span className="ml-1 hidden ">{` - ${hoursPosted}h`}</span>
+            <span className="ml-1">{` - ${hoursPosted}h`}</span>
             <LikeIcon likes={likes} />
           </div>
           <p className="mt-3 pr-10">{text}</p>

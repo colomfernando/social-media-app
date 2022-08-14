@@ -6,9 +6,13 @@
  */
 const getDifferenceHours = (timestamp: number): number | null => {
   if (!timestamp) return null;
-  const now = new Date().getTime();
 
-  return Math.floor((now - timestamp) / 36e5);
+  const now = new Date().getTime();
+  const timestampDate = new Date(timestamp).getTime();
+
+  const differenceHours = Math.floor((now - timestampDate) / 36e5);
+  console.log('differenceHours :>> ', differenceHours);
+  return Math.floor((now - timestampDate) / 36e5);
 };
 
 export default getDifferenceHours;
