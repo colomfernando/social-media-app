@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const validateRegistration = Yup.object({
+const validationSchema = Yup.object({
   firstname: Yup.string().required(),
   lastname: Yup.string().required(),
   username: Yup.string().required(),
@@ -8,4 +8,4 @@ const validateRegistration = Yup.object({
   password: Yup.string().min(6).required(),
 });
 
-export default validateRegistration;
+export default validationSchema;

@@ -10,3 +10,8 @@ export interface ValuesFormRegister {
   email: string;
   password: string;
 }
+
+export interface ErrorApi extends Error {
+  code: number;
+  message: string;
+}

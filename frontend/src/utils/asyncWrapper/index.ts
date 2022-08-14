@@ -1,5 +1,6 @@
+import { ErrorApi } from 'types';
+
 type response<T> = T | null;
-type error = unknown | null | Error;
 
 /**
  * @module utils/api/utils
@@ -10,12 +11,13 @@ type error = unknown | null | Error;
  */
 const asyncWrapper = async <T>(
   fn: () => Promise<T>
-): Promise<[error, response<T>]> => {
+): Promise<[null | ErrorApi, response<T>]> => {
   try {
     const response = await fn();
+
     return [null, response];
   } catch (error) {
-    return [error, null];
+    return [error as ErrorApi, null];
   }
 };
 

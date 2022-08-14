@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({
   error,
 }) => {
   return (
-    <div className="mb-8 grow flex flex-col h-24">
+    <div className="mb-8 grow flex flex-col h-20">
       <label className="first-letter:uppercase" htmlFor={label}>
         {label}
       </label>

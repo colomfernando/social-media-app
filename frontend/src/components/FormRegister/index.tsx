@@ -2,9 +2,9 @@ import React from 'react';
 import { useFormik, FormikProps } from 'formik';
 import Input from 'components/Input';
 import { ValuesFormRegister } from 'types';
-import login from 'api/login';
+import register from 'api/register';
 import asyncWrapper from 'utils/asyncWrapper';
-import validateRegistration from 'utils/validateRegistration';
+import validationSchema from './validationSchema';
 import setCookie from 'utils/setCookie';
 
 const initialValues = {
@@ -17,7 +17,7 @@ const initialValues = {
 
 const FormRegister: React.FC = () => {
   const handleSubmit = async (values: ValuesFormRegister) => {
-    const [error, token] = await asyncWrapper<string>(() => login(values));
+    const [error, token] = await asyncWrapper<string>(() => register(values));
     if (token) setCookie('auth-token', token, 1);
 
     console.log('error :>> ', error);
@@ -25,7 +25,7 @@ const FormRegister: React.FC = () => {
 
   const formik: FormikProps<ValuesFormRegister> = useFormik({
     initialValues,
-    validationSchema: validateRegistration,
+    validationSchema,
     onSubmit: (values) => handleSubmit(values),
   });
 

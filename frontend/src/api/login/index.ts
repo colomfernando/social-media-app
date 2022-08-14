@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { ValuesFormRegister } from 'types';
+import { ValuesFormLogin } from 'types';
 
-const login = async (values: ValuesFormRegister) => {
+const register = async (values: ValuesFormLogin) => {
   try {
-    const { data } = await axios.post('/api/register', {
+    const { data } = await axios.post('/api/login', {
       ...values,
     });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.data)
-      return error.response.data;
+    if (axios.isAxiosError(error) && error.response?.data) {
+      return Promise.reject(error.response.data);
+    }
   }
 };
 
-export default login;
+export default register;
