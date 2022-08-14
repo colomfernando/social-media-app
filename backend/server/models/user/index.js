@@ -13,9 +13,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  avatar: {
+  email: {
     type: String,
     required: true,
+  },
+  avatar: {
+    type: String,
+    default: '',
   },
 });
 

@@ -10,7 +10,10 @@
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^0.27.2",
     "browser-localstorage-expire": "^1.6.0",
+    "formik": "^2.2.9",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -20,7 +23,8 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.3",
     "typescript": "^4.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.16",
@@ -50,6 +54,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://server:8080",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -9,7 +9,7 @@ COPY --chown=node:node ./backend/package*.json /home/server/
 
 COPY --chown=node:node ./backend/ .
 
-RUN npm ci
+RUN npm i
 
 EXPOSE 8080
 

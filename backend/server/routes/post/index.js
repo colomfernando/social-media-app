@@ -3,6 +3,7 @@ const asyncWrapper = require('../../utils/asyncWrapper');
 const Jwt = require('../../modules/Jwt');
 const Post = require('../../models/post');
 const ErrorHandler = require('../../modules/ErrorHandler');
+const validateNumber = require('../../utils/validateNumber');
 
 const router = express.Router();
 
@@ -45,18 +46,40 @@ router.post('/', async (req, res, next) => {
 
     if (!userId) throw new ErrorHandler('unauthorized user', 403);
 
-    const [post, error] = await asyncWrapper(() =>
+    const [, error] = await asyncWrapper(() =>
       Post.create({ ...body, user: userId })
     );
 
     if (error) throw new ErrorHandler();
 
-    res.status(201).send(post);
+    res.status(201).end();
   } catch (err) {
     next(err);
   }
 });
 
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { likes } = req.body;
+
+    if (!validateNumber(likes))
+      throw new ErrorHandler('likes must be a valid number', 404);
+
+    const roundLikes = Math.round(likes);
+
+    const [, error] = await asyncWrapper(() =>
+      Post.updateOne({ id }, { likes: roundLikes })
+    );
+    if (error) throw new ErrorHandler();
+
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
+// TODO: Delete wen development finish
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -70,7 +93,7 @@ router.delete('/:id', async (req, res, next) => {
     if (dataPost.deletedCount === 0)
       throw new ErrorHandler('record not found', 404);
 
-    res.status(204).send({ message: 'Record deleted' });
+    res.status(204).end();
   } catch (err) {
     next(err);
   }

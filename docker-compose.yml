@@ -9,6 +9,8 @@ services:
      dockerfile: ./frontend/Dockerfile
      context: ./
      target: development
+    depends_on:
+      - server
     ports:
       - "3000:3000"
     volumes:
@@ -26,7 +28,6 @@ services:
     build:
       dockerfile: ./backend/Dockerfile
       context: ./
-      target: development
     ports:
     - "8080:8080"
     volumes:

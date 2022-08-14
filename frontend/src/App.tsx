@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/index';
+import Dashboard from 'pages/Dashboard';
+import Register from 'pages/Register';
+import PrivateRoute from 'Layout/PrivateRoute';
 
 const App: React.FC = () => {
   return (
@@ -8,6 +11,16 @@ const App: React.FC = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>

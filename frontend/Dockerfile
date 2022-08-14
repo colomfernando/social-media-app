@@ -8,7 +8,7 @@ COPY --chown=node:node ./frontend/package*.json /home/app/
 
 COPY --chown=node:node ./frontend/ .
 
-RUN npm ci
+RUN npm i
 
 EXPOSE 3000
 

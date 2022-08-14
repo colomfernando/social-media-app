@@ -5,6 +5,7 @@ const asyncWrapper = require('../../utils/asyncWrapper');
 const { newUserSchema, credentialSchema } = require('../../schemas/');
 const Credential = require('../../models/credential');
 const User = require('../../models/user');
+const createAvatarUrl = require('../../utils/createAvatarUrl');
 const ErrorHandler = require('../../modules/ErrorHandler');
 
 const router = express.Router();
@@ -16,7 +17,10 @@ router.post('/register', async (req, res, next) => {
     const { error: errorNewUserSchema } = newUserSchema.validate(body);
 
     if (errorNewUserSchema)
-      throw new ErrorHandler(errorNewUserSchema.details[0].message, 400);
+      throw new ErrorHandler(
+        errorNewUserSchema.details[0].message.replace(/"/g, ''),
+        400
+      );
 
     const [isEmailRegistered] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
@@ -31,20 +35,20 @@ router.post('/register', async (req, res, next) => {
 
     const newUser = {
       ...rest,
+      avatar: createAvatarUrl(body.firstname, body.lastname),
     };
 
     const [, errorCredentialDb] = await asyncWrapper(() =>
       Credential.create({ password: hashPassword, email: newUser.email })
     );
 
-    if (errorCredentialDb)
-      throw new ErrorHandler('Email Something went wrong', 500);
+    if (errorCredentialDb) throw new ErrorHandler('Something went wrong', 500);
 
     const [dataUser, errorUserDb] = await asyncWrapper(() =>
       User.create({ ...newUser })
     );
 
-    if (errorUserDb) throw new ErrorHandler('Email Something went wrong', 500);
+    if (errorUserDb) throw new ErrorHandler('Something went wrong', 500);
 
     const token = Jwt.sign(
       {
@@ -73,7 +77,10 @@ router.post('/login', async (req, res, next) => {
     const { error: errorCredentialSchema } = credentialSchema.validate(body);
 
     if (errorCredentialSchema)
-      throw new ErrorHandler(errorCredentialSchema.details[0].message, 400);
+      throw new ErrorHandler(
+        errorCredentialSchema.details[0].message.replace(/"/g, ''),
+        400
+      );
 
     const [userFound] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
@@ -91,7 +98,7 @@ router.post('/login', async (req, res, next) => {
       User.findOne({ email: body.email })
     );
 
-    if (errorUser) throw new ErrorHandler('Email Something went wrong', 500);
+    if (errorUser) throw new ErrorHandler('Something went wrong', 500);
 
     const token = Jwt.sign(
       {

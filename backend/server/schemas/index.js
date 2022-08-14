@@ -9,7 +9,7 @@ const userSchema = joi.object({
   firstname: joi.string().required(),
   lastname: joi.string().required(),
   username: joi.string().required(),
-  avatar: joi.string().required(),
+  avatar: joi.string(),
 });
 
 const newUserSchema = userSchema.append({

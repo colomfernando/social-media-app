@@ -7,6 +7,11 @@ const authRouter = require('./routes/auth');
 const Db = require('./modules/Db');
 const verifyToken = require('./middleware/verifyToken');
 const handleError = require('./middleware/handlerError');
+// TODO: temp
+const Post = require('./models/post');
+const Credential = require('./models/credential');
+const User = require('./models/user');
+const { nextTick } = require('process');
 
 require('dotenv').config();
 
@@ -24,6 +29,18 @@ server.use(
 );
 
 server.use('/api', authRouter);
+
+// TODO: temp
+server.get('/api/delete', async (req, res) => {
+  try {
+    await Post.deleteMany();
+    await Credential.deleteMany();
+    await User.deleteMany();
+    res.status(200).send('delete all');
+  } catch (err) {
+    nextTick(err);
+  }
+});
 
 server.use(verifyToken);
 
