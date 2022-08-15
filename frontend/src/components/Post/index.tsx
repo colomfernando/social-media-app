@@ -1,7 +1,8 @@
 import React from 'react';
 import Avatar from 'components/Avatar';
 import LikeIcon from 'components/LikeIcon';
-import getDifferenceHours from 'utils/getDifferenceHours';
+import { Link } from 'react-router-dom';
+import getDifferenceTimestamp from 'utils/getDifferenceTimestamp';
 
 export interface PropsPost {
   text: string;
@@ -20,29 +21,23 @@ export interface PropsPost {
 const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
   const { avatar, firstname, lastname, username, id } = user;
 
-  const hoursPosted = getDifferenceHours(timestamp);
+  const hoursPosted = getDifferenceTimestamp(timestamp);
 
   return (
-    <article>
-      <div className="flex">
-        <Avatar userId={id} url={avatar} />
-        <div className="flex flex-col w-full ml-4 mr-1">
-          <div className="flex">
-            <p className="font-bold mr-2">
-              {`${firstname} ${lastname}`}
-              <p className="text-gray-600 font-normal md:hidden">
-                {`@${username}`}
-                <span className="ml-1 text-black md:hidden">{` - ${hoursPosted}h`}</span>
-              </p>
-            </p>
+    <li className="bg-white w-full flex p-5 mb-4 last:mb-0 rounded-md">
+      <Avatar userId={id} url={avatar} />
+      <div className="flex flex-col w-full ml-4 mr-1">
+        <div className="flex">
+          <Link to={`/user/${id}`} className="flex">
+            <p className="font-bold mr-2">{`${firstname} ${lastname}`}</p>
             <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
-            <span className="ml-1">{` - ${hoursPosted}h`}</span>
-            <LikeIcon likes={likes} />
-          </div>
-          <p className="mt-3 pr-10">{text}</p>
+          </Link>
+          <span className="ml-1">{` - ${hoursPosted}`}</span>
+          <LikeIcon likes={likes} />
         </div>
+        <p className="mt-3 pr-10">{text}</p>
       </div>
-    </article>
+    </li>
   );
 };
 

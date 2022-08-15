@@ -9,15 +9,7 @@ const PostList: React.FC<PropsPostList> = ({ posts }) => {
   if (!posts) return null;
   return (
     <ul className="flex flex-col justify-center items-center w-full">
-      {posts.length &&
-        posts.map((post) => (
-          <li
-            key={post.id}
-            className="bg-white w-full  p-5 mb-4 last:mb-0 rounded-md"
-          >
-            <Post {...post} />
-          </li>
-        ))}
+      {posts.length && posts.map((post) => <Post key={post.id} {...post} />)}
     </ul>
   );
 };

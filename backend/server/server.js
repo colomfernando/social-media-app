@@ -42,7 +42,7 @@ server.get('/api/delete', async (req, res) => {
   }
 });
 
-server.use(verifyToken);
+server.use('/api*', verifyToken);
 
 server.use('/api/post', postRouter);
 server.use('/api/user', userRouter);

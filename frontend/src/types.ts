@@ -29,3 +29,7 @@ export interface Post {
     username: string;
   };
 }
+
+export interface CreatePost {
+  text: string;
+}
