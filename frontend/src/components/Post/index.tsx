@@ -24,7 +24,7 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
   const hoursPosted = getDifferenceTimestamp(timestamp);
 
   return (
-    <li className="bg-white w-full flex p-5 mb-4 last:mb-0 rounded-md">
+    <article className="bg-white w-full flex">
       <Avatar userId={id} url={avatar} />
       <div className="flex flex-col w-full ml-4 mr-1">
         <div className="flex">
@@ -37,7 +37,7 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
         </div>
         <p className="mt-3 pr-10">{text}</p>
       </div>
-    </li>
+    </article>
   );
 };
 
