@@ -32,10 +32,10 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
             <p className="font-bold mr-2">{`${firstname} ${lastname}`}</p>
             <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
           </Link>
-          <span className="ml-1">{` - ${hoursPosted}`}</span>
+          <span className="ml-1">{` · ${hoursPosted}`}</span>
           <LikeIcon likes={likes} />
         </div>
-        <p className="mt-3 pr-10">{text}</p>
+        <p className="mt-3">{text}</p>
       </div>
     </article>
   );

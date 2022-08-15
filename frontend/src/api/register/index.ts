@@ -9,7 +9,7 @@ const register = async (values: ValuesFormRegister) => {
     return data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data)
-      return error.response.data;
+      return Promise.reject(error.response.data);
   }
 };
 

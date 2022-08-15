@@ -7,11 +7,11 @@ const Home: React.FC = () => {
   return (
     <div className="m-0 flex">
       <div
-        className="w-2/3  h-screen bg-cover bg-no-repeat bg-center"
+        className=" hidden xl:flex w-2/3  h-screen bg-cover bg-no-repeat bg-center"
         style={{ backgroundImage: 'url(/assets/bg-home.jpg)' }}
       />
-      <div className="w-1/3 bg-white h-screen flex items-center">
-        <div className="p-6 w-2/5 flex flex-col">
+      <div className=" w-full xl:w-1/3 bg-white h-screen flex items-center">
+        <div className="p-6 w-full  md:w-2/5 flex flex-col">
           <h3 className="text-5xl mb-10 font-bold">Join today</h3>
           <Button
             customStyle="mb-5"

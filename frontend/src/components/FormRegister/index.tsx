@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik, FormikProps } from 'formik';
 import Input from 'components/Input';
 import { ValuesFormRegister } from 'types';
+import { useNavigate } from 'react-router-dom';
 import register from 'api/register';
 import asyncWrapper from 'utils/asyncWrapper';
 import validationSchema from './validationSchema';
@@ -16,11 +17,17 @@ const initialValues = {
 };
 
 const FormRegister: React.FC = () => {
+  const [errorLogin, setErrorLogin] = useState('');
+  const navigate = useNavigate();
+
   const handleSubmit = async (values: ValuesFormRegister) => {
     const [error, token] = await asyncWrapper<string>(() => register(values));
-    if (token) setCookie('auth-token', token, 1);
+    if (token) {
+      setCookie('auth-token', token, 1);
+      navigate('/dashboard', { replace: true });
+    }
 
-    console.log('error :>> ', error);
+    if (error) return setErrorLogin(error.message);
   };
 
   const formik: FormikProps<ValuesFormRegister> = useFormik({
@@ -75,13 +82,23 @@ const FormRegister: React.FC = () => {
           onChange={formik.handleChange}
           error={formik.errors.password}
         />
-        <button
-          type="submit"
-          disabled={!!Object.keys(formik.errors).length || !formik.isValid}
-          className="rounded-full bg-black text-white px-8 py-3 disabled:opacity-25"
-        >
-          Submit
-        </button>
+        <div className="flex flex-col h-20 mt-4">
+          <button
+            type="submit"
+            disabled={!!Object.keys(formik.errors).length || !formik.isValid}
+            className="rounded-full bg-black text-white px-8 py-3 disabled:opacity-25"
+          >
+            Submit
+          </button>
+          {errorLogin && (
+            <div
+              className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+              role="alert"
+            >
+              <span className="font-medium">{errorLogin}</span>
+            </div>
+          )}
+        </div>
       </form>
     </div>
   );

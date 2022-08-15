@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MainLayout from 'Layout/MainLayout';
 import PostList from 'components/PostList';
-// import mockPost from '../../mocks/posts.json';
 import getPosts from 'api/getPosts';
 import asyncWrapper from 'utils/asyncWrapper';
 import Loading from 'components/Loading';
@@ -25,7 +24,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <MainLayout>
-      <section className="mt-5 mx-auto w-5/6  lg:w-1/3 flex justify-center align-center">
+      <section className="mt-5 mx-2 md:mx-auto md:w-5/6 lg:w-1/3 flex justify-center align-center">
         {loading ? (
           <Loading />
         ) : (

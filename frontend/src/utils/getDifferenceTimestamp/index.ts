@@ -12,10 +12,10 @@ const getDifferenceTimestamp = (timestamp: number): string | null => {
 
   const differenceHours = Math.floor((now - timestampDate.getTime()) / 36e5);
 
-  if (differenceHours >= 1 && differenceHours < 24)
+  if (differenceHours >= 1 && differenceHours <= 22)
     return `${differenceHours}h`;
 
-  if (differenceHours > 24)
+  if (differenceHours > 23)
     return `${timestampDate.getDate()}-${timestampDate.toLocaleString(
       'default',
       {

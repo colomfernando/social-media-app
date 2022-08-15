@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   try {
     const [posts, error] = await asyncWrapper(() =>
-      Post.find({}).populate('user')
+      Post.find({}).populate('user').sort({ timestamp: -1 })
     );
 
     if (error) throw new ErrorHandler();

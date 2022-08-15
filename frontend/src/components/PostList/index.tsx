@@ -8,12 +8,12 @@ interface PropsPostList {
 const PostList: React.FC<PropsPostList> = ({ posts }) => {
   if (!posts) return null;
   return (
-    <ul className="flex flex-col justify-center items-center w-full pb-8">
+    <ul className="flex p-2 flex-col justify-center items-center w-full">
       {posts.length &&
         posts.map((post) => (
           <li
             key={post.id}
-            className="bg-white w-full flex p-5 mb-4 last:mb-0 rounded-md"
+            className="p-4 bg-white w-full flex p-5 mb-4 last:mb-0 rounded-md"
           >
             <Post {...post} />
           </li>
