@@ -9,8 +9,14 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
+    const { userId } = req.query;
+
     const [posts, error] = await asyncWrapper(() =>
-      Post.find({}).populate('user').sort({ timestamp: -1 })
+      Post.find({
+        ...(userId && { user: userId }),
+      })
+        .populate('user')
+        .sort({ timestamp: -1 })
     );
 
     if (error) throw new ErrorHandler();

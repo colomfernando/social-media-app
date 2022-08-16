@@ -5,6 +5,7 @@ import Dashboard from 'pages/Dashboard';
 import Register from 'pages/Register';
 import Login from 'pages/Login';
 import PrivateRoute from 'Layout/PrivateRoute';
+import User from 'pages/User';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,14 @@ const App: React.FC = () => {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/user/:id"
+            element={
+              <PrivateRoute>
+                <User />
               </PrivateRoute>
             }
           />

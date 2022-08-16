@@ -1,8 +1,14 @@
 import axios from 'axios';
 
-const register = async () => {
+export interface Params {
+  userId?: string;
+}
+
+const getPosts = async (params: Params = {}) => {
   try {
-    const { data } = await axios.get('/api/post');
+    const { data } = await axios.get('/api/post', {
+      params: { ...(params && { ...params }) },
+    });
     return data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data) {
@@ -11,4 +17,4 @@ const register = async () => {
   }
 };
 
-export default register;
+export default getPosts;
