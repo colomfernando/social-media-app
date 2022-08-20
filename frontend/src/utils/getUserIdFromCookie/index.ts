@@ -2,16 +2,14 @@ import getCookie from 'utils/getCookie';
 import { TokenDecode } from 'types';
 import jwtDecode from 'jwt-decode';
 
-const isUserLogged = (): boolean => {
+const getUserIdFromCookie = (): string | null => {
   const token: null | string = getCookie('auth-token');
-
-  if (!token) return false;
+  if (!token) return null;
 
   const tokenDecode = jwtDecode<TokenDecode>(token);
 
-  if (tokenDecode && tokenDecode.id) return true;
+  if (!tokenDecode || !tokenDecode.id) return null;
 
-  return false;
+  return tokenDecode.id;
 };
-
-export default isUserLogged;
+export default getUserIdFromCookie;

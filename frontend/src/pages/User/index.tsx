@@ -42,7 +42,11 @@ const User: React.FC = () => {
         ) : (
           <div className="w-full">
             <div className="bg-white rounded-md p-5 mb-8">
-              <Avatar size={100} url={userData?.avatar} userId={userData.id} />
+              <Avatar
+                size={100}
+                urlAvatar={userData?.avatar}
+                userId={userData.id}
+              />
               <h3 className="text-xl font-bold mt-5 mb-1">{`${userData?.firstname} ${userData?.lastname}`}</h3>
               <p>{`@${userData?.username}`}</p>
             </div>

@@ -1,3 +1,4 @@
+import { JwtPayload } from 'jwt-decode';
 export interface ValuesFormLogin {
   email: string;
   password: string;
@@ -33,4 +34,11 @@ export interface Post {
 
 export interface CreatePost {
   text: string;
+}
+
+export interface TokenDecode extends JwtPayload {
+  email: string;
+  firstname: string;
+  id: string;
+  username: string;
 }

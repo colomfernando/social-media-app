@@ -2,24 +2,33 @@ import React, { useEffect, useState } from 'react';
 import MainLayout from 'Layout/MainLayout';
 import PostList from 'components/PostList';
 import getPosts from 'api/getPosts';
+import getUserData from 'api/getUserData';
 import asyncWrapper from 'utils/asyncWrapper';
 import Loading from 'components/Loading';
 import CreatePost from 'components/CreatePost';
-import { Post } from 'types';
+import { Post, User as UserType } from 'types';
+import getUserIdFromCookie from 'utils/getUserIdFromCookie';
 
 const Dashboard: React.FC = () => {
-  const [data, setData] = useState<[] | Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState<null | UserType>();
+  const [postData, setPostData] = useState<[] | Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const getPostsData = async () => {
+  const getData = async () => {
+    const userId = getUserIdFromCookie();
+    if (!userId) return null;
+
+    const [, user] = await asyncWrapper(() => getUserData(userId));
+    if (user) setUserData(user);
+
     const [, dataPosts] = await asyncWrapper<Post[]>(() => getPosts());
 
-    if (dataPosts) setData([...dataPosts]);
+    if (dataPosts) setPostData([...dataPosts]);
     setLoading(false);
   };
 
   useEffect(() => {
-    getPostsData();
+    getData();
   }, []);
 
   return (
@@ -29,8 +38,8 @@ const Dashboard: React.FC = () => {
           <Loading />
         ) : (
           <div className="w-full">
-            <CreatePost cb={getPostsData} />
-            <PostList posts={data} />
+            <CreatePost urlAvatar={userData?.avatar} cb={getData} />
+            <PostList posts={postData} />
           </div>
         )}
       </section>

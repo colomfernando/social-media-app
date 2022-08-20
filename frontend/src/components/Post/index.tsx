@@ -25,7 +25,7 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
 
   return (
     <article className="bg-white w-full flex">
-      <Avatar userId={id} url={avatar} />
+      <Avatar userId={id} urlAvatar={avatar} />
       <div className="flex flex-col w-full ml-4 mr-1">
         <div className="flex">
           <Link to={`/user/${id}`} className="flex">
