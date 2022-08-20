@@ -6,9 +6,10 @@ import Avatar from 'components/Avatar';
 export interface PropsCreatePost {
   cb: () => void;
   urlAvatar: string | undefined;
+  userId?: number | undefined;
 }
 
-const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar }) => {
+const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar, userId }) => {
   const [text, setText] = useState<string>('');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,11 +23,14 @@ const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar }) => {
     cb();
   };
 
+  const AvatarProps = {
+    ...(userId && { userId }),
+  };
   return (
     <div className="p-4 bg-white w-full flex p-5 mb-4  rounded-md">
       {urlAvatar && (
         <div className="mr-5">
-          <Avatar size={100} urlAvatar={urlAvatar} />
+          <Avatar size={100} urlAvatar={urlAvatar} {...AvatarProps} />
         </div>
       )}
       <div className="flex flex-col w-full">

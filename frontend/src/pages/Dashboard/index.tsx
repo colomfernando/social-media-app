@@ -38,7 +38,11 @@ const Dashboard: React.FC = () => {
           <Loading />
         ) : (
           <div className="w-full">
-            <CreatePost urlAvatar={userData?.avatar} cb={getData} />
+            <CreatePost
+              urlAvatar={userData?.avatar}
+              userId={userData?.id}
+              cb={getData}
+            />
             <PostList posts={postData} />
           </div>
         )}
