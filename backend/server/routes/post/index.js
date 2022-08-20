@@ -1,31 +1,14 @@
 const express = require('express');
 const asyncWrapper = require('../../utils/asyncWrapper');
-const Jwt = require('../../modules/Jwt');
 const Post = require('../../models/post');
 const ErrorHandler = require('../../modules/ErrorHandler');
 const validateNumber = require('../../utils/validateNumber');
-
+const getPosts = require('../../Controllers/post/getPosts');
+const createPost = require('../../Controllers/post/createPost');
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const { userId } = req.query;
-
-    const [posts, error] = await asyncWrapper(() =>
-      Post.find({
-        ...(userId && { user: userId }),
-      })
-        .populate('user')
-        .sort({ timestamp: -1 })
-    );
-
-    if (error) throw new ErrorHandler();
-
-    res.status(200).send(posts);
-  } catch (err) {
-    next(err);
-  }
-});
+router.get('/', getPosts);
+router.post('/', createPost);
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -38,27 +21,6 @@ router.get('/:id', async (req, res, next) => {
     if (error) throw new ErrorHandler();
 
     res.status(200).send(post);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.post('/', async (req, res, next) => {
-  try {
-    const { body } = req;
-    const token = req.header('auth-token') || req.cookies['auth-token'];
-
-    const userId = Jwt.userId(token);
-
-    if (!userId) throw new ErrorHandler('unauthorized user', 403);
-
-    const [, error] = await asyncWrapper(() =>
-      Post.create({ ...body, user: userId })
-    );
-
-    if (error) throw new ErrorHandler();
-
-    res.status(201).end();
   } catch (err) {
     next(err);
   }
@@ -78,26 +40,6 @@ router.patch('/:id', async (req, res, next) => {
       Post.updateOne({ id }, { likes: roundLikes })
     );
     if (error) throw new ErrorHandler();
-
-    res.status(204).end();
-  } catch (err) {
-    next(err);
-  }
-});
-
-// TODO: Delete wen development finish
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const [dataPost, errorPost] = await asyncWrapper(() =>
-      Post.deleteOne({ id }).exec()
-    );
-
-    if (errorPost) throw new ErrorHandler();
-
-    if (dataPost.deletedCount === 0)
-      throw new ErrorHandler('record not found', 404);
 
     res.status(204).end();
   } catch (err) {
