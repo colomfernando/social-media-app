@@ -6,7 +6,7 @@ interface PropsPostList {
 }
 
 const PostList: React.FC<PropsPostList> = ({ posts }) => {
-  if (!posts) return null;
+  if (!posts.length) return null;
   return (
     <ul className="flex p-2 flex-col justify-center items-center w-full">
       {posts.length &&

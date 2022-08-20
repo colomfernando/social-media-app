@@ -6,8 +6,10 @@ const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const [user, error] = await asyncWrapper(() => User.findById(id));
-
+    const [user, error] = await asyncWrapper(() =>
+      User.findById(id).populate('followers')
+    );
+    console.log('error :>> ', error);
     if (error) throw new ErrorHandler();
     res.status(200).send(user);
   } catch (error) {
