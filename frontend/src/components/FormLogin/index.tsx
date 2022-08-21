@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik, FormikProps } from 'formik';
 import Input from 'components/Input';
 import { useNavigate } from 'react-router-dom';
 import { ValuesFormLogin } from 'types';
-import login from 'api/login';
+import login from 'services/login';
 import asyncWrapper from 'utils/asyncWrapper';
 import validationSchema from './validationSchema';
 import setCookie from 'utils/setCookie';
+import { toast } from 'react-toastify';
 
 const initialValues = {
   email: '',
@@ -33,9 +34,14 @@ const FormLogin: React.FC = () => {
     onSubmit: (values) => handleSubmit(values),
   });
 
+  useEffect(() => {
+    if (errorLogin)
+      toast.error(errorLogin, { onClose: () => setErrorLogin('') });
+  }, [errorLogin]);
+
   return (
     <div className="my-10 w-1/4 m-auto bg-white p-8 rounded-xl shadow shadow-slate-300">
-      <form className="my-10 flex flex-col" onSubmit={formik.handleSubmit}>
+      <form className="flex flex-col" onSubmit={formik.handleSubmit}>
         <Input
           value={formik.values.email}
           label="email"
@@ -60,14 +66,6 @@ const FormLogin: React.FC = () => {
           >
             Submit
           </button>
-          {errorLogin && (
-            <div
-              className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-              role="alert"
-            >
-              <span className="font-medium">{errorLogin}</span>
-            </div>
-          )}
         </div>
       </form>
     </div>

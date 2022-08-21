@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
-import { ThemeProvider } from '@material-tailwind/react';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <App />
+    <ToastContainer position="top-center" hideProgressBar autoClose={1500} />
   </React.StrictMode>,
   document.getElementById('root')
 );

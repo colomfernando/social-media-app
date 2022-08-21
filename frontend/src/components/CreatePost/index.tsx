@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import createPost from 'api/createPost';
+import createPost from 'services/createPost';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 
@@ -30,7 +30,7 @@ const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar, userId }) => {
     <div className="p-4 bg-white w-full flex p-5 mb-4  rounded-md">
       {urlAvatar && (
         <div className="mr-5 basis-1/5">
-          <Avatar size="xxl" urlAvatar={urlAvatar} {...AvatarProps} />
+          <Avatar size={100} urlAvatar={urlAvatar} {...AvatarProps} />
         </div>
       )}
       <div className="flex flex-col w-full">

@@ -35,7 +35,7 @@ const Button: React.FC<PropsButton> = ({
 
   return (
     <button
-      className={`flex justify-center focus:outline-none  font-medium rounded-full text-sm px-5 py-2.5 ${stylesByVariant.join(
+      className={`flex justify-center focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 ${stylesByVariant.join(
         ' '
       )} ${customStyle}`}
       {...props}

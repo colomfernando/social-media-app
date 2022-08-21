@@ -3,7 +3,7 @@ import { useFormik, FormikProps } from 'formik';
 import Input from 'components/Input';
 import { ValuesFormRegister } from 'types';
 import { useNavigate } from 'react-router-dom';
-import register from 'api/register';
+import register from 'services/register';
 import asyncWrapper from 'utils/asyncWrapper';
 import validationSchema from './validationSchema';
 import setCookie from 'utils/setCookie';

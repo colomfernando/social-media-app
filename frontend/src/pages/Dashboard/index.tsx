@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import MainLayout from 'Layout/MainLayout';
 import PostList from 'components/PostList';
-import getPosts from 'api/getPosts';
-import getUserData from 'api/getUserData';
+import getPosts from 'services/getPosts';
+import getUserData from 'services/getUserData';
 import asyncWrapper from 'utils/asyncWrapper';
 import Loading from 'components/Loading';
 import CreatePost from 'components/CreatePost';
