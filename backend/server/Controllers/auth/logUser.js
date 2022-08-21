@@ -48,7 +48,7 @@ const logUser = async (req, res, next) => {
     );
     // send cookie with one hour expire
     res.cookie('auth-token', token, {
-      expires: new Date(Date.now() + 3600000),
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
     res.status(200).send(token);
   } catch (err) {
