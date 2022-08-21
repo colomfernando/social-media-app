@@ -23,7 +23,7 @@ const FormRegister: React.FC = () => {
   const handleSubmit = async (values: ValuesFormRegister) => {
     const [error, token] = await asyncWrapper<string>(() => register(values));
     if (token) {
-      setCookie('auth-token', token, 1);
+      setCookie('auth-token', token, 24);
       navigate('/dashboard', { replace: true });
     }
 

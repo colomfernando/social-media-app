@@ -1,27 +1,28 @@
 import React from 'react';
+import { Avatar as AvatarComponent } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
 interface PropsAvatar extends React.HTMLAttributes<HTMLImageElement> {
   urlAvatar: string;
   userId?: number;
-  size?: number;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 }
 
 const Avatar: React.FC<PropsAvatar> = ({
   urlAvatar,
-  size = 45,
+  size = 'md',
   userId,
   ...props
 }) => {
   if (!urlAvatar) return null;
 
   const renderImg = () => (
-    <img
+    <AvatarComponent
       {...props}
-      className={`rounded-full`}
-      style={{ width: `${size}px` }}
+      size={size}
       src={urlAvatar}
       alt="avatar"
+      variant="circular"
     />
   );
 

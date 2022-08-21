@@ -22,7 +22,7 @@ const FormLogin: React.FC = () => {
 
     if (error) return setErrorLogin(error.message);
     if (token) {
-      setCookie('auth-token', token, 1);
+      setCookie('auth-token', token, 24);
       navigate('/dashboard', { replace: true });
     }
   };

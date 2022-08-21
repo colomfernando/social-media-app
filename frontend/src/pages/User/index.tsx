@@ -8,6 +8,13 @@ import Loading from 'components/Loading';
 import { Post, User as UserType } from 'types';
 import getUserData from 'api/getUserData';
 import Avatar from 'components/Avatar';
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from '@material-tailwind/react';
 
 const User: React.FC = () => {
   const { id: userId } = useParams();
@@ -34,6 +41,19 @@ const User: React.FC = () => {
 
   if (!userData) return null;
 
+  const data = [
+    {
+      label: 'Posts',
+      value: 'html',
+      component: <PostList posts={postsData} />,
+    },
+    {
+      label: 'Followers',
+      value: 'asdasdasdasd',
+      component: <div>hola</div>,
+    },
+  ];
+
   return (
     <MainLayout>
       <section className="mt-5 mx-2 md:mx-auto md:w-5/6 lg:w-1/3 flex justify-center align-center">
@@ -43,14 +63,34 @@ const User: React.FC = () => {
           <div className="w-full">
             <div className="bg-white rounded-md p-5 mb-8">
               <Avatar
-                size={100}
+                size="xxl"
                 urlAvatar={userData?.avatar}
                 userId={userData.id}
               />
               <h3 className="text-xl font-bold mt-5 mb-1">{`${userData?.firstname} ${userData?.lastname}`}</h3>
               <p>{`@${userData?.username}`}</p>
             </div>
-            <PostList posts={postsData} />
+            <Tabs value="html">
+              <TabsHeader>
+                {data.map(({ label, value }) => (
+                  <Tab key={value} value={value}>
+                    {label}
+                  </Tab>
+                ))}
+              </TabsHeader>
+              <TabsBody
+                animate={{
+                  mount: { opacity: 100 },
+                  unmount: { opacity: 0 },
+                }}
+              >
+                {data.map(({ value, component }) => (
+                  <TabPanel key={value} value={value}>
+                    {component}
+                  </TabPanel>
+                ))}
+              </TabsBody>
+            </Tabs>
           </div>
         )}
       </section>
