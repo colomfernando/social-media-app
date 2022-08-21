@@ -36,16 +36,13 @@ const logUser = async (req, res, next) => {
 
     if (errorUser) throw new ErrorHandler('Something went wrong', 500);
 
-    const token = Jwt.sign(
-      {
-        email: dataUser.email,
-        firstname: dataUser.firstname,
-        lastname: dataUser.lastname,
-        username: dataUser.username,
-        id: dataUser._id,
-      },
-      process.env.TOKEN_SECRET
-    );
+    const token = Jwt.sign({
+      email: dataUser.email,
+      firstname: dataUser.firstname,
+      lastname: dataUser.lastname,
+      username: dataUser.username,
+      id: dataUser._id,
+    });
     // send cookie with one hour expire
     res.cookie('auth-token', token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),

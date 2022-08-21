@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import asyncWrapper from 'utils/asyncWrapper';
-import subscribeUser from 'services/subscribeUser';
-import unsubscribeUser from 'services/unsubscribeUser';
 import getUserFollowers from 'services/getUserFollowers';
 import getUserId from 'utils/getUserId';
+import useSubscriptionUser from 'hooks/useSubscriptionsUser';
 import { User } from 'types';
 import { toast } from 'react-toastify';
 
@@ -23,6 +22,8 @@ interface TypeSubscriptionMap {
 
 const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   if (!userData) return null;
+
+  const { subscribe, unsubscribe } = useSubscriptionUser();
 
   const [typeSubscription, setTypeSubscription] = useState('');
 
@@ -50,23 +51,25 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   };
 
   const handleSubscribe = async () => {
-    const [error] = await asyncWrapper(() => subscribeUser(String(id)));
-
-    if (error) return toast.error(error.message);
-
-    return toast.success('Success', {
-      onClose: () => setTypeSubscription('unsubscribe'),
-    });
+    subscribe(
+      String(id),
+      () =>
+        toast.success('Success', {
+          onClose: () => setTypeSubscription('unsubscribe'),
+        }),
+      (error) => toast.error(error.message)
+    );
   };
 
-  const handleUnsubscribe = async () => {
-    const [error] = await asyncWrapper(() => unsubscribeUser(String(id)));
-
-    if (error) return toast.error(error.message);
-
-    return toast.success('Success', {
-      onClose: () => setTypeSubscription('subscribe'),
-    });
+  const handleUnsubscribe = () => {
+    return unsubscribe(
+      String(id),
+      () =>
+        toast.success('Success', {
+          onClose: () => setTypeSubscription('subscribe'),
+        }),
+      (error) => toast.error(error.message)
+    );
   };
 
   useEffect(() => {

@@ -11,10 +11,9 @@ class Jwt {
   }
 
   static sign(userData) {
-    return jwt.sign(
-      { ...userData, exp: Math.floor(Date.now() / 1000) + 60 * 60 },
-      process.env.TOKEN_SECRET
-    );
+    return jwt.sign(userData, process.env.TOKEN_SECRET, {
+      expiresIn: '1d',
+    });
   }
 
   static userId(token) {

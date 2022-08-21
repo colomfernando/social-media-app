@@ -12,12 +12,12 @@ const subscribeUser = async (req, res, next) => {
 
     if (id === userId) return res.status(200).end();
 
-    const [user, error] = await asyncWrapper(() =>
+    const [, error] = await asyncWrapper(() =>
       User.findByIdAndUpdate(id, { $addToSet: { followers: userId } })
     );
     if (error) throw new ErrorHandler();
-    console.log('user :>> ', user);
-    res.status(204).send(user);
+
+    res.status(204).end();
   } catch (error) {
     next(error);
   }

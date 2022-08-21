@@ -47,16 +47,13 @@ const registerUser = async (req, res, next) => {
 
     if (errorUserDb) throw new ErrorHandler('Something went wrong', 500);
 
-    const token = Jwt.sign(
-      {
-        email: newUser.email,
-        firstname: newUser.firstname,
-        lastname: newUser.lastname,
-        username: newUser.username,
-        id: dataUser._id,
-      },
-      process.env.TOKEN_SECRET
-    );
+    const token = Jwt.sign({
+      email: newUser.email,
+      firstname: newUser.firstname,
+      lastname: newUser.lastname,
+      username: newUser.username,
+      id: dataUser._id,
+    });
     // send cookie with one hour expire
     res.cookie('auth-token', token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
