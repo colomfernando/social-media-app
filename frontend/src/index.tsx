@@ -9,7 +9,7 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <ToastContainer position="top-center" hideProgressBar autoClose={1500} />
+    <ToastContainer position="top-center" hideProgressBar autoClose={1000} />
   </React.StrictMode>,
   document.getElementById('root')
 );

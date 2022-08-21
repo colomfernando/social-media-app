@@ -13,6 +13,14 @@ interface PropsUserHeader {
   userData: User;
 }
 
+interface KeySubscriptionMap {
+  message: string;
+  cb: () => void;
+}
+interface TypeSubscriptionMap {
+  [index: string]: KeySubscriptionMap;
+}
+
 const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   if (!userData) return null;
 
@@ -45,22 +53,27 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
     const [error] = await asyncWrapper(() => subscribeUser(String(id)));
 
     if (error) return toast.error(error.message);
-    return toast.success('Success');
+
+    return toast.success('Success', {
+      onClose: () => setTypeSubscription('unsubscribe'),
+    });
   };
 
   const handleUnsubscribe = async () => {
     const [error] = await asyncWrapper(() => unsubscribeUser(String(id)));
 
     if (error) return toast.error(error.message);
-    return toast.success('Success');
+
+    return toast.success('Success', {
+      onClose: () => setTypeSubscription('subscribe'),
+    });
   };
-  console.log('handleUnsubscribe :>> ', handleUnsubscribe);
 
   useEffect(() => {
     checkTypeSubscription();
   }, []);
 
-  const typeSubscriptionMap = {
+  const typeSubscriptionMap: TypeSubscriptionMap = {
     unsubscribe: {
       cb: handleUnsubscribe,
       message: 'Unfollow',
@@ -70,15 +83,18 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
       message: 'Follow',
     },
   };
-  console.log('typeSub :>> ', typeSubscription);
+
   return (
     <div className="bg-white rounded-md p-5 mb-8">
       <Avatar size={100} urlAvatar={userData?.avatar} userId={userData.id} />
       <h3 className="text-xl font-bold mt-5 mb-1">{`${userData?.firstname} ${userData?.lastname}`}</h3>
       <p>{`@${userData?.username}`}</p>
       {!isSameUser() && typeSubscription && (
-        <Button onClick={handleSubscribeUser} customStyle="ml-auto">
-          {typeSubscriptionMap[typeSubscription]}
+        <Button
+          onClick={typeSubscriptionMap[typeSubscription].cb}
+          customStyle="ml-auto"
+        >
+          {typeSubscriptionMap[typeSubscription].message}
         </Button>
       )}
     </div>
