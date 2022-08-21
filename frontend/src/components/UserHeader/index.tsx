@@ -53,10 +53,10 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   const handleSubscribe = async () => {
     subscribe(
       String(id),
-      () =>
-        toast.success('Success', {
-          onClose: () => setTypeSubscription('unsubscribe'),
-        }),
+      () => {
+        toast.success('Success');
+        setTypeSubscription('unsubscribe');
+      },
       (error) => toast.error(error.message)
     );
   };
@@ -64,10 +64,10 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   const handleUnsubscribe = () => {
     return unsubscribe(
       String(id),
-      () =>
-        toast.success('Success', {
-          onClose: () => setTypeSubscription('subscribe'),
-        }),
+      () => {
+        toast.success('Success');
+        setTypeSubscription('subscribe');
+      },
       (error) => toast.error(error.message)
     );
   };
