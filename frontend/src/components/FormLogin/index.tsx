@@ -14,8 +14,10 @@ const initialValues = {
   password: '',
 };
 
+// TODO getuserid y guardar en redux
 const FormLogin: React.FC = () => {
   const [errorLogin, setErrorLogin] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = async (values: ValuesFormLogin) => {

@@ -24,11 +24,9 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
   if (!userData) return null;
 
   const { subscribe, unsubscribe } = useSubscriptionUser();
-
   const [typeSubscription, setTypeSubscription] = useState('');
 
   const { id } = userData;
-
   const userIdLogged = getUserId();
 
   const isSameUser = (): boolean => {

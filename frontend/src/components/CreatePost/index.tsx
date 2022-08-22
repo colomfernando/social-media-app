@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import createPost from 'services/createPost';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
+import { toast } from 'react-toastify';
 
 export interface PropsCreatePost {
   cb: () => void;
@@ -20,6 +21,7 @@ const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar, userId }) => {
     if (!text.trim()) return null;
     createPost({ text });
     setText('');
+    toast.success('Posted successful');
     cb();
   };
 
@@ -27,7 +29,7 @@ const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar, userId }) => {
     ...(userId && { userId }),
   };
   return (
-    <div className="p-4 bg-white w-full flex p-5 mb-4  rounded-md">
+    <div className="p-4 bg-white w-full flex p-5 mb-8 rounded-md">
       {urlAvatar && (
         <div className="mr-5 basis-1/5">
           <Avatar size={100} urlAvatar={urlAvatar} {...AvatarProps} />

@@ -4,12 +4,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import redux from './store';
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <ToastContainer position="top-center" hideProgressBar autoClose={1000} />
+    <Provider store={redux.store}>
+      <PersistGate persistor={redux.persistor}>
+        <App />
+        <ToastContainer
+          position="top-center"
+          hideProgressBar
+          autoClose={1000}
+        />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
