@@ -8,15 +8,16 @@ import asyncWrapper from 'utils/asyncWrapper';
 import validationSchema from './validationSchema';
 import setCookie from 'utils/setCookie';
 import { toast } from 'react-toastify';
+import useGetUserData from 'hooks/userGetUserData';
 
 const initialValues = {
   email: '',
   password: '',
 };
 
-// TODO getuserid y guardar en redux
 const FormLogin: React.FC = () => {
   const [errorLogin, setErrorLogin] = useState('');
+  const { saveUserInStore } = useGetUserData();
 
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ const FormLogin: React.FC = () => {
 
     if (error) return setErrorLogin(error.message);
     if (token) {
+      saveUserInStore(token);
       setCookie('auth-token', token, 24);
       navigate('/dashboard', { replace: true });
     }

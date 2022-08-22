@@ -5,11 +5,15 @@ import LogoutIcon from 'components/LogoutIcon';
 import { Link } from 'react-router-dom';
 import setCookie from 'utils/setCookie';
 import Button from 'components/Button';
+import { useDispatch } from 'react-redux';
+import { actionWipeUser } from 'store/actions';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch(actionWipeUser());
     setCookie('auth-token', '');
     navigate('/', { replace: true });
   };

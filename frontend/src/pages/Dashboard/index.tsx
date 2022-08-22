@@ -2,25 +2,19 @@ import React, { useEffect, useState } from 'react';
 import MainLayout from 'Layout/MainLayout';
 import PostList from 'components/PostList';
 import getPosts from 'services/getPosts';
-import getUserData from 'services/getUserData';
 import asyncWrapper from 'utils/asyncWrapper';
 import Loading from 'components/Loading';
 import CreatePost from 'components/CreatePost';
-import { Post, User as UserType } from 'types';
-import getUserIdFromCookie from 'utils/getUserIdFromCookie';
+import { Post } from 'types';
+import { useSelector } from 'react-redux';
+import { State } from 'store/types';
 
 const Dashboard: React.FC = () => {
-  const [userData, setUserData] = useState<null | UserType>();
   const [postData, setPostData] = useState<[] | Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const userData = useSelector((state: State) => state.user);
 
   const getData = async () => {
-    const userId = getUserIdFromCookie();
-    if (!userId) return null;
-
-    const [, user] = await asyncWrapper(() => getUserData(userId));
-    if (user) setUserData(user);
-
     const [, dataPosts] = await asyncWrapper<Post[]>(() => getPosts());
 
     if (dataPosts) setPostData([...dataPosts]);
@@ -31,6 +25,8 @@ const Dashboard: React.FC = () => {
     getData();
   }, []);
 
+  if (!userData) return null;
+
   return (
     <MainLayout>
       <section className="mt-5 mx-2 md:mx-auto md:w-5/6 lg:w-1/3 flex justify-center align-center">
@@ -39,8 +35,8 @@ const Dashboard: React.FC = () => {
         ) : (
           <div className="w-full">
             <CreatePost
-              urlAvatar={userData?.avatar}
-              userId={userData?.id}
+              urlAvatar={userData.avatar}
+              userId={userData.id}
               cb={getData}
             />
             <PostList posts={postData} />

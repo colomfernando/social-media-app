@@ -8,6 +8,7 @@ import asyncWrapper from 'utils/asyncWrapper';
 import validationSchema from './validationSchema';
 import setCookie from 'utils/setCookie';
 import { toast } from 'react-toastify';
+import useGetUserData from 'hooks/userGetUserData';
 
 const initialValues = {
   firstname: '',
@@ -20,10 +21,12 @@ const initialValues = {
 const FormRegister: React.FC = () => {
   const [errorLogin, setErrorLogin] = useState('');
   const navigate = useNavigate();
+  const { saveUserInStore } = useGetUserData();
 
   const handleSubmit = async (values: ValuesFormRegister) => {
     const [error, token] = await asyncWrapper<string>(() => register(values));
     if (token) {
+      saveUserInStore(token);
       setCookie('auth-token', token, 24);
       navigate('/dashboard', { replace: true });
     }
