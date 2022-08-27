@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Button from 'components/Button';
 import asyncWrapper from 'utils/asyncWrapper';
 import searchUsers from 'services/searchUsers';
@@ -35,6 +35,12 @@ const InputSearch: React.FC = () => {
     setUsersResults([]);
   };
 
+  useEffect(() => {
+    return () => setUsersResults([]);
+  }, []);
+
+  const handleCloseResult = useCallback(() => setUsersResults([]), []);
+
   return (
     <div className="flex w-1/5 bg-white relative">
       <input
@@ -58,7 +64,7 @@ const InputSearch: React.FC = () => {
           <ul className="divide-y">
             {usersResults.map((user) => (
               <li key={user.id}>
-                <UserCard {...user} />
+                <UserCard {...user} cb={handleCloseResult} />
               </li>
             ))}
           </ul>

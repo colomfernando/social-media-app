@@ -16,7 +16,7 @@ const User: React.FC = () => {
   const [postsData, setPostsData] = useState<[] | Post[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const getPostsData = async () => {
+  const getData = async () => {
     const [, userData] = await asyncWrapper(() => getUserData(paramId));
 
     if (userData) setUserData(userData);
@@ -29,8 +29,8 @@ const User: React.FC = () => {
   };
 
   useEffect(() => {
-    getPostsData();
-  }, []);
+    getData();
+  }, [paramId]);
 
   if (!userData) return null;
 

@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const user = useSelector((state: State) => state.user);
   const dispatch = useDispatch();
-  console.log('user :>> ', user);
+
   const handleLogout = () => {
     dispatch(actionWipeUser());
     setCookie('auth-token', '');
