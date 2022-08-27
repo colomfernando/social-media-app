@@ -6,6 +6,8 @@ const Jwt = require('../../modules/Jwt');
 const getUsers = async (req, res, next) => {
   try {
     const { user } = req.query;
+
+    if (!user) throw new ErrorHandler('user is required', 404);
     const token = req.header('auth-token') || req.cookies['auth-token'];
     const userIdToken = Jwt.userId(token);
 

@@ -21,6 +21,7 @@ const Button: React.FC<PropsButton> = ({
     'hover:bg-gray-100 ',
     'focus:ring-gray-200',
     'focus:z-10',
+    'disabled:bg-gray-400',
   ];
   const stylesContained = [
     'border-0',
@@ -28,6 +29,7 @@ const Button: React.FC<PropsButton> = ({
     'hover:bg-stone-700',
     'bg-black',
     'focus:ring-blue-300',
+    'disabled:bg-gray-400',
   ];
 
   const stylesByVariant =

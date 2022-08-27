@@ -7,6 +7,7 @@ import setCookie from 'utils/setCookie';
 import Button from 'components/Button';
 import { useDispatch } from 'react-redux';
 import { actionWipeUser } from 'store/actions';
+import InputSearch from 'components/InputSearch';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ const Header: React.FC = () => {
       <Link to="/dashboard">
         <SocialIcon />
       </Link>
-      <Button onClick={handleLogout}>
+      <InputSearch />
+      <Button variant="outlined" onClick={handleLogout}>
         <LogoutIcon />
         Logout
       </Button>

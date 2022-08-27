@@ -52,7 +52,7 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
     subscribe(
       String(id),
       () => {
-        toast.success('Success');
+        toast.success(`Following @${userData?.username}`);
         setTypeSubscription('unsubscribe');
       },
       (error) => toast.error(error.message)
@@ -63,7 +63,7 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
     return unsubscribe(
       String(id),
       () => {
-        toast.success('Success');
+        toast.success(`Unfollow @${userData?.username}`);
         setTypeSubscription('subscribe');
       },
       (error) => toast.error(error.message)

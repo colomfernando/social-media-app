@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik, FormikProps } from 'formik';
-import Input from 'components/Input';
+import Input from 'components/InputForm';
 import { ValuesFormRegister } from 'types';
 import { useNavigate } from 'react-router-dom';
 import register from 'services/register';
