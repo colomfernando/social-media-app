@@ -5,26 +5,12 @@ const ErrorHandler = require('../../modules/ErrorHandler');
 const validateNumber = require('../../utils/validateNumber');
 const getPosts = require('../../Controllers/post/getPosts');
 const createPost = require('../../Controllers/post/createPost');
+const getPostById = require('../../Controllers/post/getPostById.js');
 const router = express.Router();
 
 router.get('/', getPosts);
 router.post('/', createPost);
-
-router.get('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const [post, error] = await asyncWrapper(() =>
-      Post.findById(id).populate('user')
-    );
-
-    if (error) throw new ErrorHandler();
-
-    res.status(200).send(post);
-  } catch (err) {
-    next(err);
-  }
-});
+router.get('/:id', getPostById);
 
 router.patch('/:id', async (req, res, next) => {
   try {

@@ -10,8 +10,6 @@ const createPost = async (req, res, next) => {
 
     const userId = Jwt.userId(token);
 
-    if (!userId) throw new ErrorHandler('unauthorized user', 403);
-
     const [, error] = await asyncWrapper(() =>
       Post.create({ ...body, user: userId })
     );
