@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 export interface PropsCreatePost {
   cb: () => void;
   urlAvatar: string | undefined;
-  userId?: number | undefined;
+  userId?: string | undefined;
 }
 
 const CreatePost: React.FC<PropsCreatePost> = ({ cb, urlAvatar, userId }) => {

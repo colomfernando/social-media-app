@@ -4,14 +4,19 @@ export interface PropsButton
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: string;
   customStyle?: string;
+  baseButton?: boolean;
 }
 
 const Button: React.FC<PropsButton> = ({
   children,
   variant = 'contained',
   customStyle,
+  baseButton = false,
   ...props
 }) => {
+  const baseStyles =
+    'flex justify-center focus:outline-none font-medium rounded-full text-sm px-5 py-2.5';
+
   const stylesOutlined = [
     'focus:outline-none',
     'bg-white',
@@ -35,13 +40,12 @@ const Button: React.FC<PropsButton> = ({
   const stylesByVariant =
     variant === 'outlined' ? stylesOutlined : stylesContained;
 
+  const baseClass = baseButton
+    ? null
+    : `${baseStyles} ${stylesByVariant.join(' ')}`;
+
   return (
-    <button
-      className={`flex justify-center focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 ${stylesByVariant.join(
-        ' '
-      )} ${customStyle}`}
-      {...props}
-    >
+    <button className={`${baseClass}} ${customStyle}`} {...props}>
       {children}
     </button>
   );

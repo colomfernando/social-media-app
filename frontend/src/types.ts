@@ -18,7 +18,7 @@ export interface ErrorApi extends Error {
 }
 
 export interface User {
-  id: number;
+  id: string;
   avatar: string;
   firstname: string;
   lastname: string;
@@ -26,7 +26,7 @@ export interface User {
 }
 export interface Post {
   text: string;
-  id: number;
+  id: string;
   likes: number;
   timestamp: number;
   user: User;

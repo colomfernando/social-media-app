@@ -87,7 +87,11 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
 
   return (
     <div className="bg-white rounded-md p-5 mb-8">
-      <Avatar size={100} urlAvatar={userData?.avatar} userId={userData.id} />
+      <Avatar
+        size={100}
+        urlAvatar={userData?.avatar}
+        userId={String(userData.id)}
+      />
       <h3 className="text-xl font-bold mt-5 mb-1">{`${userData?.firstname} ${userData?.lastname}`}</h3>
       <p>{`@${userData?.username}`}</p>
       {!isSameUser() && typeSubscription && (

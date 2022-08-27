@@ -6,11 +6,11 @@ import getDifferenceTimestamp from 'utils/getDifferenceTimestamp';
 
 export interface PropsPost {
   text: string;
-  id: number;
+  id: string;
   likes: number;
   timestamp: number;
   user: {
-    id: number;
+    id: string;
     avatar: string;
     firstname: string;
     lastname: string;

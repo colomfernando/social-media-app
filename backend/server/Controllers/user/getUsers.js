@@ -1,20 +1,26 @@
 const asyncWrapper = require('../../utils/asyncWrapper');
 const User = require('../../models/user');
 const ErrorHandler = require('../../modules/ErrorHandler');
-const Jwt = require('../../modules/Jwt');
 
 const getUsers = async (req, res, next) => {
   try {
     const { user } = req.query;
 
     if (!user) throw new ErrorHandler('user is required', 404);
-    const token = req.header('auth-token') || req.cookies['auth-token'];
-    const userIdToken = Jwt.userId(token);
 
-    const searchByUser = user ? { username: { $regex: user } } : {};
+    const searchByUser = user
+      ? {
+          $or: [
+            { username: { $regex: user } },
+            { firstname: { $regex: user } },
+            { lastname: { $regex: user } },
+            { email: { $regex: user } },
+          ],
+        }
+      : {};
 
     const [users, error] = await asyncWrapper(() =>
-      User.find({ _id: { $ne: userIdToken }, ...searchByUser })
+      User.find({ ...searchByUser })
     );
 
     if (error) throw new ErrorHandler();

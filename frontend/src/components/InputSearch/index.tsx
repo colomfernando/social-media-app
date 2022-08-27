@@ -2,39 +2,68 @@ import React, { useState } from 'react';
 import Button from 'components/Button';
 import asyncWrapper from 'utils/asyncWrapper';
 import searchUsers from 'services/searchUsers';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SearchIcon from 'components/SearchIcon';
+import { User } from 'types';
+import UserCard from 'components/UserCard';
 
 const InputSearch: React.FC = () => {
   const [value, setValue] = useState('');
-  const navigate = useNavigate();
+  const [usersResults, setUsersResults] = useState<[] | User[]>([]);
 
   const handleSearch = async () => {
     if (!value) return null;
-    const [error, user] = await asyncWrapper(() =>
+
+    const [error, users] = await asyncWrapper<User[]>(() =>
       searchUsers({ user: value })
     );
 
     if (error) return toast.error(error.message);
-    if (!user) return null;
 
-    if (user.length === 1) return navigate(`/user/${user[0].id}`);
+    if (!users) return null;
+    if (!users.length) return toast.error('no user found');
+
+    setUsersResults(users);
+  };
+
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleSearch();
   };
 
   const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
+    setUsersResults([]);
   };
+
   return (
-    <div className="flex w-1/5">
+    <div className="flex w-1/5 bg-white relative">
       <input
-        className="w-full border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mr-3 "
+        className="w-full px-3 focus:outline-none"
         onChange={handleOnChange}
         value={value}
         placeholder="Search user"
+        onKeyDown={handleOnKeyDown}
       />
-      <Button disabled={!value} onClick={handleSearch}>
-        Search
+
+      <Button
+        baseButton
+        customStyle="mr-3"
+        disabled={!value}
+        onClick={handleSearch}
+      >
+        <SearchIcon />
       </Button>
+      {!!usersResults.length && (
+        <div className="w-full bg-white absolute top-full drop-shadow-lg border-t-2 border-t-gray-200 p-3">
+          <ul className="divide-y">
+            {usersResults.map((user) => (
+              <li key={user.id}>
+                <UserCard {...user} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

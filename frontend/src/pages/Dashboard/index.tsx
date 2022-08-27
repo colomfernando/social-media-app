@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
           <div className="w-full">
             <CreatePost
               urlAvatar={userData.avatar}
-              userId={userData.id}
+              userId={String(userData.id)}
               cb={getData}
             />
             <PostList posts={postData} />
