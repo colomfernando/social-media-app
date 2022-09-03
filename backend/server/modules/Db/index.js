@@ -15,7 +15,7 @@ class Db {
         console.log('Connected to the database!');
       })
       .catch((err) => {
-        console.log('Cannot connect to the database!', err);
+        console.error('Cannot connect to the database!', err);
         // eslint-disable-next-line no-undef
         process.exit();
       });
