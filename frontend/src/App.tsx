@@ -7,6 +7,7 @@ import Login from 'pages/Login';
 import PrivateRoute from 'Layout/PrivateRoute';
 import User from 'pages/User';
 
+// TODO revisar cuando elimino todo que queda tokens invalidos
 const App: React.FC = () => {
   return (
     <>

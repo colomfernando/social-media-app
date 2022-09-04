@@ -1,5 +1,6 @@
 import React from 'react';
-import Post, { PropsPost } from 'components/Post';
+import Post from 'components/Post';
+import { Post as PropsPost } from 'types';
 
 interface PropsPostList {
   posts: PropsPost[];

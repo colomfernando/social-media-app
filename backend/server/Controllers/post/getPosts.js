@@ -24,6 +24,11 @@ const getPosts = async (req, res, next) => {
         user: { $in: filterByUser },
       })
         .populate('user')
+        .populate({
+          path: 'likes',
+          select: 'id',
+          match: { id: { $eq: userIdToken } },
+        })
         .sort({ timestamp: -1 })
     );
 

@@ -28,9 +28,13 @@ postSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
+postSchema.virtual('likes_count').get(function () {
+  return this.likes.length;
+});
+
 postSchema.set('toJSON', {
   virtuals: true,
-  transform: function (doc, ret) {
+  transform: (doc, ret) => {
     delete ret._id;
     delete ret.__v;
   },

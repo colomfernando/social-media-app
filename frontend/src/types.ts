@@ -24,10 +24,15 @@ export interface User {
   lastname: string;
   username: string;
 }
+
+export interface LikesPost {
+  id: string;
+}
 export interface Post {
   text: string;
   id: string;
-  likes: number;
+  likes: LikesPost[];
+  likes_count: number;
   timestamp: number;
   user: User;
 }

@@ -2,23 +2,16 @@ import React from 'react';
 import Avatar from 'components/Avatar';
 import LikeIcon from 'components/LikeIcon';
 import { Link } from 'react-router-dom';
+import { Post as PropsPost } from 'types';
 import getDifferenceTimestamp from 'utils/getDifferenceTimestamp';
 
-export interface PropsPost {
-  text: string;
-  id: string;
-  likes: number;
-  timestamp: number;
-  user: {
-    id: string;
-    avatar: string;
-    firstname: string;
-    lastname: string;
-    username: string;
-  };
-}
-
-const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
+const Post: React.FC<PropsPost> = ({
+  text,
+  user,
+  likes,
+  likes_count,
+  timestamp,
+}) => {
   const { avatar, firstname, lastname, username, id } = user;
 
   const hoursPosted = getDifferenceTimestamp(timestamp);
@@ -35,7 +28,7 @@ const Post: React.FC<PropsPost> = ({ text, user, likes, timestamp }) => {
             <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
           </Link>
           <span className="ml-1">{` · ${hoursPosted}`}</span>
-          <LikeIcon likes={likes} />
+          <LikeIcon likes={likes_count} hasFill={!!likes.length} />
         </div>
         <p className="mt-3">{text}</p>
       </div>
