@@ -20,7 +20,7 @@ const getPostById = async (req, res, next) => {
         })
     );
 
-    if (error) throw new ErrorHandler();
+    if (error) throw new ErrorHandler(error.message, 400);
 
     res.status(200).send(post);
   } catch (err) {

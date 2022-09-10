@@ -24,15 +24,10 @@ const getPosts = async (req, res, next) => {
         user: { $in: filterByUser },
       })
         .populate('user')
-        .populate({
-          path: 'likes',
-          select: 'id',
-          match: { id: { $eq: userIdToken } },
-        })
         .sort({ timestamp: -1 })
     );
 
-    if (errorPosts) throw new ErrorHandler();
+    if (errorPosts) throw new ErrorHandler(errorPosts.message, 400);
 
     res.status(200).send(posts);
   } catch (err) {

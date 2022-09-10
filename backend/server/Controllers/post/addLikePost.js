@@ -22,7 +22,7 @@ const addLikePost = async (req, res, next) => {
       Post.findOneAndUpdate(id, { $addToSet: { likes: userId } })
     );
 
-    if (errorUpdatePost) throw new ErrorHandler();
+    if (errorUpdatePost) throw new ErrorHandler(errorUpdatePost.message, 400);
 
     res.status(204).end();
   } catch (error) {

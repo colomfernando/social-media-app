@@ -8,8 +8,8 @@ const getFollowersByUserId = require('../../Controllers/user/getFollowersByUserI
 const router = express.Router();
 
 router.get('/', getUsers);
-router.get('/:id/followers', getFollowersByUserId);
 router.get('/:id', getUserById);
+router.get('/:id/followers', getFollowersByUserId);
 
 router.post('/:id/subscribe', subscribeUser);
 router.post('/:id/unsubscribe', unsubscribeUser);

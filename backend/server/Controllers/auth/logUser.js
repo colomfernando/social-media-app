@@ -13,10 +13,7 @@ const logUser = async (req, res, next) => {
     const { error: errorCredentialSchema } = credentialSchema.validate(body);
 
     if (errorCredentialSchema)
-      throw new ErrorHandler(
-        errorCredentialSchema.details[0].message.replace(/"/g, ''),
-        400
-      );
+      throw new ErrorHandler(errorCredentialSchema.details[0].message, 400);
 
     const [userFound] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })

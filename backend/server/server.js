@@ -30,7 +30,7 @@ server.use(
 server.use('/api', authRouter);
 
 // TODO: temp
-server.get('/api/delete', async (req, res, next) => {
+server.post('/api/delete', async (req, res, next) => {
   try {
     await Post.deleteMany();
     await Credential.deleteMany();

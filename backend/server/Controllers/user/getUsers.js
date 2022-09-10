@@ -6,8 +6,6 @@ const getUsers = async (req, res, next) => {
   try {
     const { user } = req.query;
 
-    if (!user) throw new ErrorHandler('user is required', 404);
-
     const searchByUser = user
       ? {
           $or: [

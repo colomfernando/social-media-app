@@ -14,10 +14,7 @@ const registerUser = async (req, res, next) => {
     const { error: errorNewUserSchema } = newUserSchema.validate(body);
 
     if (errorNewUserSchema)
-      throw new ErrorHandler(
-        errorNewUserSchema.details[0].message.replace(/"/g, ''),
-        400
-      );
+      throw new ErrorHandler(errorNewUserSchema.details[0].message, 400);
 
     const [isEmailRegistered] = await asyncWrapper(() =>
       Credential.findOne({ email: body.email })
@@ -39,13 +36,13 @@ const registerUser = async (req, res, next) => {
       Credential.create({ password: hashPassword, email: newUser.email })
     );
 
-    if (errorCredentialDb) throw new ErrorHandler('Something went wrong', 500);
+    if (errorCredentialDb) throw new ErrorHandler();
 
     const [dataUser, errorUserDb] = await asyncWrapper(() =>
       User.create({ ...newUser })
     );
 
-    if (errorUserDb) throw new ErrorHandler('Something went wrong', 500);
+    if (errorUserDb) throw new ErrorHandler();
 
     const token = Jwt.sign({
       email: newUser.email,
