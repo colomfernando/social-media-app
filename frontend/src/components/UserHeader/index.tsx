@@ -10,6 +10,9 @@ import { toast } from 'react-toastify';
 
 interface PropsUserHeader {
   userData: User;
+  totalFollowers: number;
+  totalFollowing: number;
+  totalLikes: number;
 }
 
 interface KeySubscriptionMap {
@@ -20,7 +23,12 @@ interface TypeSubscriptionMap {
   [index: string]: KeySubscriptionMap;
 }
 
-const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
+const UserHeader: React.FC<PropsUserHeader> = ({
+  userData,
+  totalFollowers,
+  totalFollowing,
+  totalLikes,
+}) => {
   if (!userData) return null;
 
   const { subscribe, unsubscribe } = useSubscriptionUser();
@@ -28,11 +36,11 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
 
   const { id } = userData;
   const userIdLogged = getUserId();
-
+  console.log('userIdLogged :>> ', userIdLogged);
   const isSameUser = (): boolean => {
     return userIdLogged === String(id);
   };
-
+  console.log('isSameUser() :>> ', isSameUser());
   const checkTypeSubscription = async () => {
     const [error, data] = await asyncWrapper(() =>
       getUserFollowers(String(id))
@@ -84,7 +92,7 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
       message: 'Follow',
     },
   };
-
+  // TODO:revisar boton Follow
   return (
     <div className="bg-white rounded-md p-5 mb-8">
       <Avatar
@@ -102,6 +110,11 @@ const UserHeader: React.FC<PropsUserHeader> = ({ userData }) => {
           {typeSubscriptionMap[typeSubscription].message}
         </Button>
       )}
+      <div className="flex mt-5 space-x-3">
+        <p>{`Followers: ${totalFollowers}`}</p>
+        <p>{`Following: ${totalFollowing}`}</p>
+        <p>{`Likes: ${totalLikes}`}</p>
+      </div>
     </div>
   );
 };

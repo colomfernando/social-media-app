@@ -1,9 +1,9 @@
 const express = require('express');
-const getPosts = require('../../Controllers/post/getPosts');
-const createPost = require('../../Controllers/post/createPost');
-const getPostById = require('../../Controllers/post/getPostById');
-const addLikePost = require('../../Controllers/post/addLikePost');
-const removeLikePost = require('../../Controllers/post/removeLikePost');
+const getPosts = require('../../controllers/post/getPosts');
+const createPost = require('../../controllers/post/createPost');
+const getPostById = require('../../controllers/post/getPostById');
+const addLikePost = require('../../controllers/post/addLikePost');
+const removeLikePost = require('../../controllers/post/removeLikePost');
 const router = express.Router();
 
 router.get('/', getPosts);
