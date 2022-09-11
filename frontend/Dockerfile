@@ -1,4 +1,4 @@
-FROM node:12-alpine AS development
+FROM node:14-alpine AS development
 ENV NODE_ENV development
 USER node
 

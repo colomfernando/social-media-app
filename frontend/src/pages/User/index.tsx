@@ -8,10 +8,12 @@ import Loading from 'components/Loading';
 import { Post, User as UserType } from 'types';
 import getUserData from 'services/getUserData';
 import UserHeader from 'components/UserHeader';
+import Tabs from 'components/Tabs';
 
 const User: React.FC = () => {
   const { id: paramId } = useParams();
   if (!paramId) return null;
+
   const [userData, setUserData] = useState<null | UserType>();
   const [postsData, setPostsData] = useState<[] | Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +44,11 @@ const User: React.FC = () => {
         ) : (
           <div className="w-full">
             <UserHeader userData={userData} />
-            <PostList posts={postsData} />
+            <Tabs titles={['Posts', 'Followers', 'Following']}>
+              <PostList posts={postsData} />
+              <div>Followers</div>
+              <div>Following</div>
+            </Tabs>
           </div>
         )}
       </section>

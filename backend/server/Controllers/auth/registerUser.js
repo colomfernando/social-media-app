@@ -36,13 +36,13 @@ const registerUser = async (req, res, next) => {
       Credential.create({ password: hashPassword, email: newUser.email })
     );
 
-    if (errorCredentialDb) throw new ErrorHandler();
+    if (errorCredentialDb) throw new ErrorHandler(errorCredentialDb.message);
 
     const [dataUser, errorUserDb] = await asyncWrapper(() =>
       User.create({ ...newUser })
     );
 
-    if (errorUserDb) throw new ErrorHandler();
+    if (errorUserDb) throw new ErrorHandler(errorUserDb.message);
 
     const token = Jwt.sign({
       email: newUser.email,

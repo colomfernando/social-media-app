@@ -12,12 +12,17 @@ const unsubscribeUser = async (req, res, next) => {
 
     if (id === userId) return res.status(200).end();
 
-    const [user, error] = await asyncWrapper(() =>
+    const [, errorFollowers] = await asyncWrapper(() =>
       User.findByIdAndUpdate(id, { $pull: { followers: userId } })
     );
-    if (error) throw new ErrorHandler();
+    if (errorFollowers) throw new ErrorHandler();
 
-    res.status(204).send(user);
+    const [, errorFollowing] = await asyncWrapper(() =>
+      User.findByIdAndUpdate(userId, { $pull: { following: id } })
+    );
+    if (errorFollowing) throw new ErrorHandler();
+
+    res.status(204).end();
   } catch (error) {
     next(error);
   }

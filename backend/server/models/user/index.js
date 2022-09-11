@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema({
     ],
     default: [],
   },
+  following: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    default: [],
+  },
 });
 
 userSchema.virtual('id').get(function () {
@@ -42,6 +51,7 @@ userSchema.set('toJSON', {
     delete ret._id;
     delete ret.__v;
     delete ret.followers;
+    delete ret.following;
   },
 });
 
