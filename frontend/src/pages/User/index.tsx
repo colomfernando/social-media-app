@@ -8,33 +8,53 @@ import Loading from 'components/Loading';
 import { Post, User as UserType } from 'types';
 import getUserData from 'services/getUserData';
 import UserHeader from 'components/UserHeader';
+import getUserFollowers from 'services/getUserFollowers';
+import getUserFollowing from 'services/getUserFollowing';
 import Tabs from 'components/Tabs';
+import UserCard from 'components/UserCard';
+
+interface Data {
+  user: UserType | Record<string, any>;
+  posts: Post[] | [];
+  followers: UserType[];
+  following: UserType[];
+}
 
 const User: React.FC = () => {
   const { id: paramId } = useParams();
   if (!paramId) return null;
-
-  const [userData, setUserData] = useState<null | UserType>();
-  const [postsData, setPostsData] = useState<[] | Post[]>([]);
+  const [data, setData] = useState<Data | Record<string, any>>({});
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     const [, userData] = await asyncWrapper(() => getUserData(paramId));
 
-    if (userData) setUserData(userData);
     const [, dataPosts] = await asyncWrapper<Post[]>(() =>
       getPosts({ userId: paramId })
     );
 
-    if (dataPosts) setPostsData([...dataPosts]);
+    const [, followersData] = await asyncWrapper(() =>
+      getUserFollowers(paramId)
+    );
+
+    const [, followingData] = await asyncWrapper(() =>
+      getUserFollowing(paramId)
+    );
+
+    setData({
+      ...data,
+      user: userData || {},
+      posts: dataPosts || [],
+      followers: followersData || [],
+      following: followingData || [],
+    });
+
     setLoading(false);
   };
 
   useEffect(() => {
     getData();
   }, [paramId]);
-
-  if (!userData) return null;
 
   return (
     <MainLayout>
@@ -43,11 +63,19 @@ const User: React.FC = () => {
           <Loading />
         ) : (
           <div className="w-full">
-            <UserHeader userData={userData} />
+            <UserHeader userData={data.user} />
             <Tabs titles={['Posts', 'Followers', 'Following']}>
-              <PostList posts={postsData} />
-              <div>Followers</div>
-              <div>Following</div>
+              <PostList posts={data.posts} />
+              <div>
+                {data.followers.map((user: UserType) => (
+                  <UserCard key={user.id} {...user} />
+                ))}
+              </div>
+              <div>
+                {data.following.map((user: UserType) => (
+                  <UserCard key={user.id} {...user} />
+                ))}
+              </div>
             </Tabs>
           </div>
         )}
