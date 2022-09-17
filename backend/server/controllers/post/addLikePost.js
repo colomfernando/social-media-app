@@ -19,7 +19,7 @@ const addLikePost = async (req, res, next) => {
     if (postUser.id === userId) res.status(204).end();
 
     const [, errorUpdatePost] = await asyncWrapper(() =>
-      Post.findOneAndUpdate(id, { $addToSet: { likes: userId } })
+      Post.findOneAndUpdate({ _id: id }, { $addToSet: { likes: userId } })
     );
 
     if (errorUpdatePost) throw new ErrorHandler(errorUpdatePost.message, 400);
