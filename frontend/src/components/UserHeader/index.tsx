@@ -36,11 +36,11 @@ const UserHeader: React.FC<PropsUserHeader> = ({
 
   const { id } = userData;
   const userIdLogged = getUserId();
-  console.log('userIdLogged :>> ', userIdLogged);
+
   const isSameUser = (): boolean => {
     return userIdLogged === String(id);
   };
-  console.log('isSameUser() :>> ', isSameUser());
+
   const checkTypeSubscription = async () => {
     const [error, data] = await asyncWrapper(() =>
       getUserFollowers(String(id))
@@ -92,7 +92,7 @@ const UserHeader: React.FC<PropsUserHeader> = ({
       message: 'Follow',
     },
   };
-  // TODO:revisar boton Follow
+
   return (
     <div className="bg-white rounded-md p-5 mb-8">
       <Avatar

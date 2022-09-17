@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'components/Button';
 
 export interface PropsTabs {
   titles: string[];
   children: JSX.Element[];
+  selectedTab?: number | null;
+  onSelect?: (selectedIndex: number) => void;
 }
-const Tabs: React.FC<PropsTabs> = ({ titles, children }) => {
+const Tabs: React.FC<PropsTabs> = ({
+  titles,
+  children,
+  onSelect,
+  selectedTab,
+}) => {
   const [activeTab, setActiveTab] = useState(0);
-  const handleActiveTab = (idx: number) => setActiveTab(idx);
+
+  const handleActiveTab = (idx: number) => {
+    setActiveTab(idx);
+    if (onSelect) onSelect(idx);
+  };
   if (!children) return null;
+
+  useEffect(() => {
+    if (selectedTab && selectedTab <= titles.length) setActiveTab(selectedTab);
+  }, [selectedTab]);
 
   return (
     <div>

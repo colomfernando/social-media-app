@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Header from 'components/Header';
 
-const MainLayout: React.FC = ({ children }) => {
+interface PropsMainLayout {
+  children: ReactNode;
+}
+const MainLayout: React.FC<PropsMainLayout> = ({ children }) => {
   return (
     <>
       <Header />

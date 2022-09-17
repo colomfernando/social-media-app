@@ -64,7 +64,7 @@ const Post: React.FC<PropsPost> = ({
       </div>
       <div className="flex flex-col w-full ml-4 mr-1">
         <div className="flex">
-          <Link to={`/user/${id}`} className="flex">
+          <Link to={`/user/${userId}`} className="flex">
             <p className="font-bold mr-2">{`${firstname} ${lastname}`}</p>
             <p className="text-gray-600 hidden md:flex">{`@${username}`}</p>
           </Link>

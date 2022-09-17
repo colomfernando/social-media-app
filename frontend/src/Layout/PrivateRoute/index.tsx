@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import isUserLogged from 'utils/isUserLogged';
 import { Navigate } from 'react-router-dom';
-
-const PrivateRoute: React.FC = ({ children }) => {
+interface PropsPrivateRoute {
+  children: ReactNode;
+}
+const PrivateRoute: React.FC<PropsPrivateRoute> = ({ children }) => {
   const isLogged = isUserLogged();
 
   if (!isLogged) return <Navigate to="/" replace />;
