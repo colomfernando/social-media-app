@@ -2,7 +2,6 @@
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/colomfernando/social-media-app)
 ![GitHub issues](https://img.shields.io/github/issues/colomfernando/social-media-app)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/colomfernando/social-media-app)
 
 **Demo of social media app**
 
